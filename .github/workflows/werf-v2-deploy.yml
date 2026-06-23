@@ -54,6 +54,11 @@ on:
         type: string
         default: ""
         description: "Suffix for werf.yaml"
+      project_name:
+        required: false
+        type: string
+        default: ""
+        description: "Override .project value in werf.yaml (e.g. platform-front-admin)"
 
 
     secrets:
@@ -105,6 +110,7 @@ jobs:
           WERF_CONFIG_NAME: ${{ inputs.werf_config_name }}
           NAMESPACE: ${{ inputs.namespace }}
           APPNAME: ${{ inputs.appname }}
+          PROJECT_NAME: ${{ inputs.project_name }}
         run: |
           HARBOR_PROJECT="$DEPLOY_ENV"
 
@@ -117,6 +123,10 @@ jobs:
           ENVNAME="$DEPLOY_ENV"
           WERF_NAMESPACE=""
           if [[ -n "$NAMESPACE" ]]; then WERF_NAMESPACE="${NAMESPACE}-${ENVNAME}"; fi
+
+          if [[ -n "$PROJECT_NAME" ]]; then
+            sed -i "s/set . \"project\" \"[^\"]*\"/set . \"project\" \"${PROJECT_NAME}\"/g" werf.yaml
+          fi
 
           if [[ -f ./.helm/def.sh ]]; then source ./.helm/def.sh && $DEPLOY_ENV; fi
 

@@ -38,6 +38,11 @@ on:
         required: false
         type: string
         description: "Application name (WERF_SET_APPNAME)"
+      project_name:
+        required: false
+        type: string
+        default: ""
+        description: "Override .project value in werf.yaml (e.g. platform-front-admin)"
 
 
     secrets:
@@ -72,6 +77,7 @@ jobs:
           WERF_SECRET_KEY: ${{ secrets.WERF_SECRET_KEY }}
           WERF_CONFIG_NAME: ${{ inputs.werf_config_name }}
           APPNAME: ${{ inputs.appname }}
+          PROJECT_NAME: ${{ inputs.project_name }}
         run: |
           HARBOR_PROJECT="$DEPLOY_ENV"
 
@@ -82,6 +88,10 @@ jobs:
           if [[ -z "$CUSTOM_TAG" ]]; then CUSTOM_TAG="%image%-${GITHUB_RUN_ID}"; fi
 
           ENVNAME="$DEPLOY_ENV"
+
+          if [[ -n "$PROJECT_NAME" ]]; then
+            sed -i "s/set . \"project\" \"[^\"]*\"/set . \"project\" \"${PROJECT_NAME}\"/g" werf.yaml
+          fi
 
           if [[ -f ./.helm/def.sh ]]; then source ./.helm/def.sh && $DEPLOY_ENV; fi
 
