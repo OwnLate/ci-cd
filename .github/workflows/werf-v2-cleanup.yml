@@ -7,12 +7,14 @@
 #       uses: GlobalArtInc/ci-cd/.github/workflows/werf-v2-cleanup.yml@master
 #       with:
 #         deploy_env: prod
+#       secrets: inherit
 #
 #     cleanup_stage:
 #       needs: [deploy_stage]
 #       uses: GlobalArtInc/ci-cd/.github/workflows/werf-v2-cleanup.yml@master
 #       with:
 #         deploy_env: stage
+#       secrets: inherit
 
 on:
   workflow_call:
@@ -25,6 +27,16 @@ on:
         required: false
         type: string
         description: "Repository name in Harbor (defaults to the GitHub repository name)"
+    secrets:
+      HARBOR_HOST:
+        required: true
+      HARBOR_USERNAME:
+        required: true
+      HARBOR_PASSWORD:
+        required: true
+      KUBECTX:
+        required: true
+        description: "Base64-encoded kubeconfig (KUBECTX_PROD1 or KUBECTX_STAGE1)"
 
 jobs:
   cleanup:

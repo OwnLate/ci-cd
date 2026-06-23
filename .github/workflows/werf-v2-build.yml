@@ -6,11 +6,13 @@
 #       uses: GlobalArtInc/ci-cd/.github/workflows/werf-v2-build.yml@master
 #       with:
 #         deploy_env: prod
+#       secrets: inherit
 #
 #     build_stage:
 #       uses: GlobalArtInc/ci-cd/.github/workflows/werf-v2-build.yml@master
 #       with:
 #         deploy_env: stage
+#       secrets: inherit
 
 on:
   workflow_call:
@@ -32,6 +34,13 @@ on:
         type: string
         default: ""
         description: "Suffix for werf.yaml (resulting file: werf<suffix>.yaml)"
+    secrets:
+      HARBOR_HOST:
+        required: true
+      HARBOR_USERNAME:
+        required: true
+      HARBOR_PASSWORD:
+        required: true
 
 jobs:
   build:

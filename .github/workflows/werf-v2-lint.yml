@@ -6,11 +6,13 @@
 #       uses: GlobalArtInc/ci-cd/.github/workflows/werf-v2-lint.yml@master
 #       with:
 #         deploy_env: prod
+#       secrets: inherit
 #
 #     lint_stage:
 #       uses: GlobalArtInc/ci-cd/.github/workflows/werf-v2-lint.yml@master
 #       with:
 #         deploy_env: stage
+#       secrets: inherit
 
 on:
   workflow_call:
@@ -36,6 +38,13 @@ on:
         required: false
         type: string
         description: "Application name (WERF_SET_APPNAME)"
+    secrets:
+      HARBOR_HOST:
+        required: true
+      HARBOR_USERNAME:
+        required: true
+      HARBOR_PASSWORD:
+        required: true
 
 jobs:
   lint:

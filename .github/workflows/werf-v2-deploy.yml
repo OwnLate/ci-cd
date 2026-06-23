@@ -8,6 +8,7 @@
 #         deploy_env: prod
 #         environment_name: production/prod1
 #         environment_url: https://api.globalart.dev/swagger/
+#       secrets: inherit
 #
 #     deploy_stage:
 #       uses: GlobalArtInc/ci-cd/.github/workflows/werf-v2-deploy.yml@master
@@ -15,6 +16,7 @@
 #         deploy_env: stage
 #         environment_name: staging
 #         environment_url: https://api.glbart.dev/swagger/
+#       secrets: inherit
 
 on:
   workflow_call:
@@ -52,6 +54,16 @@ on:
         type: string
         default: ""
         description: "Suffix for werf.yaml"
+    secrets:
+      HARBOR_HOST:
+        required: true
+      HARBOR_USERNAME:
+        required: true
+      HARBOR_PASSWORD:
+        required: true
+      KUBECTX:
+        required: true
+        description: "Base64-encoded kubeconfig for the target cluster (KUBECTX_PROD1 or KUBECTX_STAGE1)"
 
 jobs:
   deploy:
