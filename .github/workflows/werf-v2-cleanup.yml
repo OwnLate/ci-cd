@@ -44,13 +44,16 @@ on:
 jobs:
   cleanup:
     runs-on: ubuntu-latest
-    container:
-      image: registry.werf.io/werf/werf:2-stable
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: Setup werf
+        uses: werf/actions/install@v2
+        with:
+          channel: ea
 
       - name: Setup kubeconfig
         run: |
