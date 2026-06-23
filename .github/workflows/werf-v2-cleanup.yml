@@ -4,14 +4,14 @@
 #   jobs:
 #     cleanup_prod:
 #       needs: [deploy_prod]
-#       uses: GlobalArtInc/ci-cd/.github/workflows/werf/v2/cleanup.yml@master
+#       uses: GlobalArtInc/ci-cd/.github/workflows/werf-v2-cleanup.yml@master
 #       with:
 #         deploy_env: prod
 #       secrets: inherit
 #
 #     cleanup_stage:
 #       needs: [deploy_stage]
-#       uses: GlobalArtInc/ci-cd/.github/workflows/werf/v2/cleanup.yml@master
+#       uses: GlobalArtInc/ci-cd/.github/workflows/werf-v2-cleanup.yml@master
 #       with:
 #         deploy_env: stage
 #       secrets: inherit

@@ -3,7 +3,7 @@
 #
 #   jobs:
 #     deploy_prod:
-#       uses: GlobalArtInc/ci-cd/.github/workflows/werf/v2/deploy.yml@master
+#       uses: GlobalArtInc/ci-cd/.github/workflows/werf-v2-deploy.yml@master
 #       with:
 #         deploy_env: prod
 #         environment_name: production/prod1
@@ -11,7 +11,7 @@
 #       secrets: inherit
 #
 #     deploy_stage:
-#       uses: GlobalArtInc/ci-cd/.github/workflows/werf/v2/deploy.yml@master
+#       uses: GlobalArtInc/ci-cd/.github/workflows/werf-v2-deploy.yml@master
 #       with:
 #         deploy_env: stage
 #         environment_name: staging
