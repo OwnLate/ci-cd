@@ -36,9 +36,10 @@ on:
         required: true
       HARBOR_PASSWORD:
         required: true
-      KUBECTX:
-        required: true
-        description: "Base64-encoded kubeconfig (KUBECTX_PROD1 or KUBECTX_STAGE1)"
+      KUBECTX_PROD1:
+        required: false
+      KUBECTX_STAGE1:
+        required: false
 
 jobs:
   cleanup:
@@ -54,7 +55,9 @@ jobs:
       - name: Setup kubeconfig
         run: |
           mkdir -p ~/.kube
-          echo "${{ secrets.KUBECTX }}" | base64 -d > ~/.kube/config
+          KUBECTX="${{ secrets.KUBECTX_PROD1 }}"
+          if [[ "${{ inputs.deploy_env }}" == "stage" ]]; then KUBECTX="${{ secrets.KUBECTX_STAGE1 }}"; fi
+          echo "$KUBECTX" | base64 -d > ~/.kube/config
           chmod 600 ~/.kube/config
 
       - name: Cleanup registry
