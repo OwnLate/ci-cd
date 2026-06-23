@@ -67,7 +67,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: [self-hosted, us-east-1-runner]
+    runs-on: ubuntu-latest
     environment:
       name: ${{ inputs.environment_name }}
       url: ${{ inputs.environment_url }}

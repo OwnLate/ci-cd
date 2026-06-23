@@ -27,7 +27,7 @@ on:
 
 jobs:
   dismiss:
-    runs-on: [self-hosted, us-east-1-runner]
+    runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - uses: actions/checkout@v4

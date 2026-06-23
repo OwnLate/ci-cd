@@ -40,7 +40,7 @@ on:
 
 jobs:
   cleanup:
-    runs-on: [self-hosted, us-east-1-runner]
+    runs-on: ubuntu-latest
     container:
       image: registry.werf.io/werf/werf:2-stable
     continue-on-error: true
